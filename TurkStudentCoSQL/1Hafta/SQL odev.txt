@@ -1,0 +1,52 @@
+-- SORU 1 : BELİRLİ KOLONLARI SEÇME 
+-- Çalışanların sadece FirstName, LastName ve Salary bilgilerini getiren bir SQL sorgusu yazınız. 
+------------------------------------------------
+SELECT firstname, lastname, salary
+FROM employees;
+
+AÇIKLAMA :  İstenilen sütunları SELECT kısmına yazarak bu sorguyu verinin alınacağı employees tablosunu FROM kısmına yazarak elde ederiz.
+
+------------------------------------------------
+-- SORU 2 : DISTINCT KOMUTU İLE TEKRARLARI ÖNLEME 
+-- Çalışanların çalıştıkları departmanları benzersiz olarak listeleyen bir SQL sorgusu yazınız.
+------------------------------------------------
+SELECT DISTINCT d.departmentname             
+FROM employees e
+JOIN departments d ON e.departmentid = d.Departmentid;
+
+AÇIKLAMA : Öncelikli olarak join metodunu kullandığımız için takma adlar (alias ) kullanıyoruz. 
+SELECT DISTINCT kısmına d.departmentname sütununu yazarız bu arada d. İfadesiyle departmentname takma ad vermiş oluyoruz. Daha sonra FROM kısmına ise verinin alınacağı tabloyu yazıyoruz ona da ( e ) takma adını veriyoruz bir boşluk vererek. Ayrıca DISTINCT komutu ise tekrar etmeksizin bu sütunları göstermemizi sağlayacaktır. JOIN metodu ile employees tablosunu, departments tablosu üzerindeki departmentid sütunu üzerinden birleştiriyoruz.
+
+----------------------------------------------------
+-- SORU 3 : BELİRLİ DEPARTMANA AİT ÇALIŞANLARI LİSTELEME
+-- Sadece IT departmanında çalışanların bilgilerini getiren bir SQL sorgusu yazınız.
+----------------------------------------------------
+
+SELECT e.*
+FROM employees e
+JOIN departments d ON e.departmentid = d.departmentid
+WHERE d.departmentname = 'IT';
+
+AÇIKLAMA : Yine employees tablosuna bir takma ad veriyoruz. JOIN metodu ile employees tablosunu, departments tablosundaki departmentid sütunu üzerinden birleştiriyoruz. WHERE komutu ile istenilen departman adını tırnak işareti içinde belirterek sadece o departmana ait çalışanları filtreliyoruz.
+----------------------------------------------------
+-- SORU 4 : MAAŞA GÖRE SIRALAMA
+-- Çalışanları maaşlarına göre büyükten küçüğe sıralayan bir SQL sorgusu yazınız. 
+----------------------------------------------------
+
+SELECT salary
+FROM employees 
+ORDER BY salary DESC;
+
+AÇIKLAMA : Employees tablosundan salary sütunu ORDER BY komutu ile DESC yani büyükten küçüğe doğru sıralamasını istiyoruz.
+
+----------------------------------------------------
+-- SORU 5 : KOLONLARI BİRLEŞTİRME
+-- Çalışanların FirstName ve LastName alanlarını birleştirerek, tam adlarını içeren yeni bir kolon oluşturan bir SQL sorgusu yazınız.  
+----------------------------------------------------
+
+SELECT firstname || ' ' || lastname  as fullname
+FROM employees;
+
+AÇIKLAMA : SELECT kısmına birleştirilecek olan sütunları  virgül yerine  , || ile birleştirme yaparız. Burada ‘ ‘ ise bu isim soyisimlerin birleşmiş halinin arasına boşluk vermiş olduk. As ifadesiyle bu birleştirilmiş sutunlara yeni isim atamış olduk.
+
+
