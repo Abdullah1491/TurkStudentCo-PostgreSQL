@@ -1,0 +1,48 @@
+-- SORU 1 : Invoice tablosunda, tüm değerleri NULL olan kayıtların sayısını bulmanız isteniyor. Bu işlemi tek bir sorgu ile yapmalısınız. 
+-- Sorguyu yazdıktan sonra, PostgreSQL’in sol alt kısmındaki Row sayısını, SQL sorgunuzda yorum satırında belirtmeniz gerekmektedir. 
+---------------------------------------------------------
+
+SELECT COUNT(*) AS "Tüm_Satırlar_Null_Olan"
+FROM invoice
+WHERE invoice IS NULL;
+--WHERE row_to_json(invoice)::TEXT = '{}'
+
+-- AÇIKLAMA : COUNT() fonksiyonu satır sayısını hesaplamak için kullanılır. COUNT(*) ise tablodaki tüm satır sayınılarını hesaplamaktadır.
+Burada WHERE koşulu ile invoice sütunundaki NULL değerlere sahip satırları filtreler ve count(*) ile de bu değerlerin toplamını saydırmış oluruz.
+-- Not: JSON formatına çevirerekte bu sütunları saydırabiliriz.
+
+----------------------------------------------------------
+-- SORU 2 : Koordinasyondaki kişiler, Total değerlerinde bir hata olduğunu belirtiyorlar. 
+-- Bu değerlerin iki katını görmek ve eski versiyonlarıyla birlikte karşılaştırmak için bir sorgu yazmanız isteniyor.
+-- Ayrıca, verilerin daha rahat takip edilebilmesi için, tablonun yeni versiyonuna ait kolona göre büyükten küçüğe sıralama yapılması isteniyor.
+------------------------------------------------------------
+
+SELECT 
+    total AS "Eski_Total",         
+    total * 2 AS "Yeni_Total"      
+FROM invoice
+ORDER BY "Yeni_Total" DESC;
+
+-- AÇIKLAMA : Total sütununa yeni bir isim (Eski_Total) veriyoruz ve aynı sütunun değerlerini total * 2 işlemiyle iki katına çıkararak Yeni_Total adında yeni bir sütun oluşturuyoruz.
+Burada "x2" ile total sütununun içindeki numeric/integer değerlerin 2 katını alarak sorgu yapmamızı sağlıyor.
+Sorgumuzda ORDER BY komutu ve DESC parametresiyle Yeni Total sütunumuz büyükten küçüğe doğru sıralanmış oluyor.
+-- Not : Eğer sütun içersinde TEXT ya da VARCHAR türü olursa işlem hata verir.
+Ve ayrıca takma isimler verirken tırnak işareti olmaksızın büyük harfle yazsak dahi sorguda bu takma isimler küçük harfle karşımıza çıkacaktır.
+
+--------------------------------------------------------------
+-- SORU 3 : Adres kolonundaki verileri, soldan 3 karakter ve sağdan 4 karakter alarak birleştirmeniz ve "Açık Adres" olarak yazmanız isteniyor. 
+-- Ayrıca, bu yeni açık adresi 2013 yılı ve 8. ay’a göre filtrelemeniz gerekiyor. 
+---------------------------------------------------------------
+
+SELECT 
+    CONCAT(LEFT(billing_address, 3),'***', RIGHT(billing_address, 4)) AS "Açık Adres",
+    invoice_date  
+FROM Invoice
+WHERE EXTRACT(YEAR FROM invoice_date) = 2013  
+  AND EXTRACT(MONTH FROM invoice_date) = 8;
+
+-- AÇIKLAMA : CONCAT fonksiyonumuzla (LEFT (billing address, 3)) sütunumuzun ilk 3, (right(billing address, 4")) ifadesi ile sütunumuzdaki son 4 karakterini birleştirmiş oluyoruz. 
+WHERE koşulu ile EXTRACT() fonksiyonumuz herhangi bir tarih/saat verilerinden belirli bir bileşenini çıkarmak için kullanmış oluyoruz. Biz sorgumuzda ise yıl ve ayı çıkarmış olduk.
+Her iki ifadenin ortasına tırnak işareti içersinde herhangi bir karakter ekleyerek bu sütun içindeki seçilen ilk 3 ve son 4 karakterlerin arasında görünmüş oldu. (OPSİYONEL)
+-- NOT: Eğer sorguda kullanılan tarih sütunu (invoice_date gibi) tabloda yoksa,  işlem hata verir.
+Ancak, sütun tabloda varsa ama tüm değerleri NULL ise, hata vermez; sadece sorgunun sonucu boş döner.
