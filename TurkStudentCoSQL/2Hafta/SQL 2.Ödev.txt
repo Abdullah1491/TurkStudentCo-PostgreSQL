@@ -2,7 +2,7 @@
 -- Sorguyu yazdıktan sonra, PostgreSQL’in sol alt kısmındaki Row sayısını, SQL sorgunuzda yorum satırında belirtmeniz gerekmektedir. 
 ---------------------------------------------------------
 
-SELECT COUNT(*)
+SELECT COUNT(*) AS "Tüm_Satırlar_Null_Olan"
 FROM invoice
 WHERE invoice_id IS NULL
   AND customer_id IS NULL
