@@ -2,10 +2,17 @@
 -- Sorguyu yazdıktan sonra, PostgreSQL’in sol alt kısmındaki Row sayısını, SQL sorgunuzda yorum satırında belirtmeniz gerekmektedir. 
 ---------------------------------------------------------
 
-SELECT COUNT(*) AS "Tüm_Satırlar_Null_Olan"
+SELECT COUNT(*)
 FROM invoice
-WHERE invoice IS NULL;
---WHERE row_to_json(invoice)::TEXT = '{}'
+WHERE invoice_id IS NULL
+  AND customer_id IS NULL
+  AND invoice_date IS NULL
+  AND billing_address IS NULL
+  AND billing_city IS NULL
+  AND billing_state IS NULL
+  AND billing_country IS NULL
+  AND billingpostal_code IS NULL
+  AND total IS NULL;
 
 -- AÇIKLAMA : COUNT() fonksiyonu satır sayısını hesaplamak için kullanılır. COUNT(*) ise tablodaki tüm satır sayınılarını hesaplamaktadır.
 Burada WHERE koşulu ile invoice sütunundaki NULL değerlere sahip satırları filtreler ve count(*) ile de bu değerlerin toplamını saydırmış oluruz.
