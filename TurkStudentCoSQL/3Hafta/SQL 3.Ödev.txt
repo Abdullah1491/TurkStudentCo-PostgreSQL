@@ -1,0 +1,56 @@
+-- SORU 1 :  “USA” ülkesine ait, 2009 yılı içerisinde oluşturulmuş tüm faturaların (Invoice) toplamını listeleyen bir sorgu yazınız.
+-------------------------------------------------
+SELECT SUM(total) AS total_invoice_amount
+FROM invoice
+WHERE billing_country = 'USA'
+AND EXTRACT(YEAR FROM invoice_date) = 2009;
+
+-- AÇIKLAMA: SUM(total) fonksiyonumuzla *total* sütununun toplamını alıyoruz ve sonuca bir alias atayarak "total_invoice_amount" ismiyle adlandırıyoruz.
+-- WHERE koşuluyla *billing_country* sütunumuzda sadece "USA" olan satırları seçiyoruz ve EXTRACT fonksiyonuyla da *invoice_date* sütunundan yıl bilgisini çekmiş oluyoruz.
+
+--------------------------------------------------
+-- SORU 2 : Tüm parça (track) bilgilerini, bu parçaların ait olduğu playlisttrack ve playlist tablolarıyla birleştirerek (JOIN) listeleyen bir sorgu yazınız. 
+--------------------------------------------------
+SELECT 
+    t.track_id, 
+    t.name AS track_name, 
+    t.album_id, 
+    t.mediatype_id, 
+    t.genre_id, 
+    t.composer, 
+    t.milliseconds, 
+    t.bytes, 
+    t.unitprice, 
+    pt.playlist_id, 
+    p.name AS playlist_name
+FROM track t
+JOIN playlisttrack pt ON t.track_id = pt.track_id
+JOIN playlist p ON pt.playlist_id = p.playlist_id;
+
+-- AÇIKLAMA : Select ifadesi ile istenilen sütunları seçiyoruz ve *tract t* ifadesi ile track tablosundan verileri çekiyoruz.
+-- JOIN playlisttrack pt ON t.track_id = pt.track_id ifadesiyle track ve playlisttrack tablolarını ve
+-- JOIN playlist p ON pt.playlist_id = p.playlist_id ifadesiyle de playlisttrack ve playlist tablolarını birleştiriyoruz.
+-- Ayrıca Track tablosuna "t", playlisttrack tablosuna "pt" ve playlist tablosuna ise "p" takma adlarını vermiş olduk. 
+
+--------------------------------------
+-- SORU 3 :  "Let There Be Rock" adlı albüme ait tüm parçaları (Track) listeleyen, sanatçı (Artist) bilgisini de içeren bir sorgu yazınız. 
+-- Ayrıca, sonuçları parça süresi (milliseconds) büyükten küçüğe sıralayınız. 
+---------------------------------------
+SELECT 
+    t.track_id, 
+    t.name AS track_name, 
+    t.milliseconds, 
+    a.title AS album_name, 
+    ar.name AS artist_name
+FROM track t
+JOIN album a ON t.album_id = a.album_id
+JOIN artist ar ON a.artist_id = ar.artist_id
+WHERE a.title = 'Let There Be Rock'
+ORDER BY t.milliseconds DESC;
+
+-- AÇIKLAMA : Select ifadesi ile istenilen sütunları seçiyoruz ve *tract t* ifadesi ile track tablosundan verileri çekiyoruz.
+-- JOIN album a ON t.album_id = a.album_id ifadesiyle track ve album tablolarını ve
+-- JOIN artist ar ON a.artist_id = ar.artist_id ifadesiyle de album ve artist tablolarını birleştiriyoruz.
+-- WHERE a.title = 'Let There Be Rock' ifadesiyle yalnızca "Let There Be Rock" albümüne ait parçaları filtrelemiş oluyoruz.
+-- ORDER BY t.milliseconds DESC ifadesi ile de büyükten küçüğe sıralamasını yapmış oluyoruz.
+-- Ayrıca track tablosunu "t", album tablosunu "a" ve artist tablosuna da "ar" takma adlarını vermiş olduk.
