@@ -4,8 +4,15 @@
 
 SELECT COUNT(*) AS "Tüm_Satırlar_Null_Olan"
 FROM invoice
-WHERE invoice IS NULL; 
--- WHERE rows_to_json(invoice)::TEXT={} json formatına çevrilerekte yapılabilir.
+WHERE invoice_id IS NULL
+  AND customer_id IS NULL
+  AND invoice_date IS NULL
+  AND billing_address IS NULL
+  AND billing_city IS NULL
+  AND billing_state IS NULL
+  AND billing_country IS NULL
+  AND billingpostal_code IS NULL
+  AND total IS NULL;
 
 
 ----------------------------------------------------------
