@@ -38,7 +38,7 @@ Members tablosunda: registration_date
 Enrollments tablosunda: enrollment_date
 BlogPosts tablosunda: publish_date
 
-# TEXT: Çok büyük metin verilerini saklamak için kullanılır. Bir TEXT alanı, sınırsız uzunlukta karakter dizileri içerebilir. Bu, uzun açıklamalar, blog içerikleri 
+TEXT: Çok büyük metin verilerini saklamak için kullanılır. Bir TEXT alanı, sınırsız uzunlukta karakter dizileri içerebilir. Bu, uzun açıklamalar, blog içerikleri 
 veya makaleler gibi veriler için kullanışlıdır.
 
 TEXT kullanılan sütunlar:
