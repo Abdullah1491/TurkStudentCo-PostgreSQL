@@ -30,22 +30,22 @@ saklayacak bir tablo oluşturun.. Bu tablo, üyeler tablosu ile ilişkilendirilm
 
 **2.  Birincil ve Yabancı Anahtarlar:** 
 
-I. Her tabloda bir Birincil Anahtar (PK) tanımlayın. Uygun veri tipini seçin (INTEGER, BIGINT, SMALLINT vb.). 
+****I.**** Her tabloda bir Birincil Anahtar (PK) tanımlayın. Uygun veri tipini seçin (INTEGER, BIGINT, SMALLINT vb.). 
 
-II. Tablolar arasındaki ilişkileri doğru bir şekilde kurmak için Yabancı Anahtarları (FK) kullanın. Yabancı anahtar sütunlarının veri tiplerinin, ilişkili oldukları birincil 
+****II.**** Tablolar arasındaki ilişkileri doğru bir şekilde kurmak için Yabancı Anahtarları (FK) kullanın. Yabancı anahtar sütunlarının veri tiplerinin, ilişkili oldukları birincil 
 anahtar sütunlarının veri tipleriyle aynı olmasına dikkat edin.
 
-III. Gerekli alanlarda veri tekliğini sağlamak için Tekil Anahtarlar (UK) tanımlayın (örneğin, kullanıcı adı (VARCHAR), e-posta (VARCHAR), sertifika kodu (VARCHAR)). Uygun uzunlukları belirtin. 
+****III.**** Gerekli alanlarda veri tekliğini sağlamak için Tekil Anahtarlar (UK) tanımlayın (örneğin, kullanıcı adı (VARCHAR), e-posta (VARCHAR), sertifika kodu (VARCHAR)). Uygun uzunlukları belirtin. 
 
 **3.  SQL Dosyası Oluşturma** 
 
-I. Oluşturduğunuz tüm tabloları, sütun adlarını, uygun veri tiplerini (INTEGER, BIGINT, VARCHAR, TEXT, DATE, TIMESTAMP, FLOAT, BOOLEAN vb.),Birincil Anahtar (PK), Yabancı Anahtar (FK) ve 
+****I.**** Oluşturduğunuz tüm tabloları, sütun adlarını, uygun veri tiplerini (INTEGER, BIGINT, VARCHAR, TEXT, DATE, TIMESTAMP, FLOAT, BOOLEAN vb.),Birincil Anahtar (PK), Yabancı Anahtar (FK) ve 
 Tekil Anahtar (UK) kısıtlamalarını tanımlayan bir .sql dosyası oluşturun. Gerekli durumlarda NOT NULL gibi kısıtlamaları da ekleyin.
 
-II. Bu .sql dosyası, veritabanının sıfırdan oluşturulabilmesini ve ilişkilerin kurulabilmesini sağlamalıdır. 
+****II.**** Bu .sql dosyası, veritabanının sıfırdan oluşturulabilmesini ve ilişkilerin kurulabilmesini sağlamalıdır. 
 
 **4. Genel Şema Ekran Resmi** 
 
-I. Oluşturduğunuz tabloları ve aralarındaki Birincil Anahtar (PK) ve Yabancı Anahtar (FK) ilişkilerini (oklarla gösterilmiş şekilde) görsel olarak gösteren bir veritabanı şema
+****I.**** Oluşturduğunuz tabloları ve aralarındaki Birincil Anahtar (PK) ve Yabancı Anahtar (FK) ilişkilerini (oklarla gösterilmiş şekilde) görsel olarak gösteren bir veritabanı şema
 diyagramının ekran görüntüsünü alın. Bu, veritabanı tasarımının anlaşılmasına yardımcı olacaktır. Şemada sütun adlarını ve veri tiplerini de göstermeye çalışın. 
 
