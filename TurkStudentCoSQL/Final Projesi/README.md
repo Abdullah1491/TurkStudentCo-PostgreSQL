@@ -1,7 +1,7 @@
 ![ERD_final_project](https://github.com/user-attachments/assets/0b9743f4-a27e-42d3-926b-bb2747db6417)
 
 
-**1.  Veritabanı Şeması Tasarımı**
+#1.  Veritabanı Şeması Tasarımı
 Aşağıdaki temel işlevleri destekleyecek tablolar tasarlayın: 
 
 ****I. Üyeler (Members):**** Üye bilgilerini (kullanıcı adı (VARCHAR(50) UK), e-posta (VARCHAR(100) UK), şifre (VARCHAR(255)),kayıt tarihi (TIMESTAMP), 
