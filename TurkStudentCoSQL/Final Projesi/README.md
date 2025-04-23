@@ -1,49 +1,71 @@
 
-# 1.  Veritabanı Şeması Tasarımı
-Aşağıdaki temel işlevleri destekleyecek tablolar tasarlayın: 
+# Primary Key(PK)
+Tabloyu benzersiz şekilde tanımlayan sütun ya da sütunlar. Genellikle otomatik artan değerlerdir.
 
-**I. Üyeler (Members):** Üye bilgilerini (kullanıcı adı (VARCHAR(50) UK), e-posta (VARCHAR(100) UK), şifre (VARCHAR(255)),kayıt tarihi (TIMESTAMP), 
-ad (VARCHAR(50)), soyad (VARCHAR(50)) vb.) saklayacak bir tablo oluşturun. Bu tabloda bir Birincil Anahtar (PK) (INTEGER veya BIGINT) tanımlayın. 
+## Birincil Anahtar (PK) verilen sütunlar:
 
-**II. Eğitimler (Courses):** Platformdaki eğitimlerin bilgilerini (adı (VARCHAR(200)), açıklaması (TEXT), başlangıç tarihi (DATE),bitiş tarihi (DATE), 
-eğitmen bilgisi (VARCHAR(100)) vb.) saklayacak bir tablo oluşturun. Bu tabloda bir Birincil Anahtar (PK) (INTEGER veya BIGINT) tanımlayın.
+**Members tablosunda:** member_id
+**Courses tablosunda:** course_id
+**Categories tablosunda:** category_id
+**CourseCategories tablosunda:** Birleşik PK: (course_id, category_id)
+**Enrollments tablosunda:** enrollment_id
+**Certificates tablosunda:** certificate_id
+**CertificateAssignments tablosunda:** assignment_id
+**BlogPosts tablosunda:** post_id
 
-**III. Kategoriler (Categories):** Eğitim kategorilerini (yapayzeka (VARCHAR(100)), blokzincir (VARCHAR(100)), siber güvenlik (VARCHAR(100)) vb.)
-yönetebilecek bir tablo oluşturun. Bu tabloda bir Birincil Anahtar (PK) (INTEGER veya SMALLINT) tanımlayın. Eğitimler ile kategoriler arasında 
-bir ilişki kurun (Yabancı Anahtar (FK) (INTEGER veya SMALLINT) kullanılarak). 
+# Foreign Key(FK)
+Diğer tablolara referans olan ve aralarındaki ilişkiyi tanımlayan sütunlardır.
 
-**IV. Katılımlar (Enrollments):** Kullanıcıların hangi eğitimlere katıldığını takip edebilecek bir ara tablo oluşturun. Bu tablo, kullanıcılar (INTEGER veya BIGINT FK) 
-ve eğitimler (INTEGER veya BIGINT FK) tabloları arasındaki çok-çok ilişkisini yönetmeli ve her iki tabloya ait Yabancı Anahtarları (FK) içermelidir. Bu tabloda bir 
-Birincil Anahtar (PK) (INTEGER veya BIGINT) da tanımlanabilir (örneğin, otomatik artan bir ID). İsteğe bağlı olarak katılım tarihi (TIMESTAMP) gibi bilgiler de eklenebilir.
+## Yabancı Anahtar verilen sütunlar:
 
-**V. Sertifikalar (Certificates):** Tamamlanan eğitimler için sertifika bilgilerini (sertifika kodu (VARCHAR(100) UK), veriliş tarihi (DATE) vb.) saklayacak bir tablo oluşturun.
-Bu tabloda bir Birincil Anahtar (PK) (INTEGER veya BIGINT) tanımlayın.
+**CourseCategories tablosunda:** course_id → Courses(course_id), category_id → Categories(category_id)
+**Enrollments tablosunda:** member_id → Members(member_id), course_id → Courses(course_id)
+**CertificateAssignments tablosunda:** member_id → Members(member_id), certificate_id → Certificates(certificate_id)
+**BlogPosts tablosunda:** author_id → Members(member_id)
 
-**VI. Sertifika Atamaları (CertificateAssignments):** Hangi kullanıcının (INTEGER veya BIGINT FK) hangi sertifika (INTEGER veya BIGINT FK) aldığını ilişkilendirecek bir tablo oluşturun
-(Yabancı Anahtarlar (FK) kullanarak üyeler ve sertifikalar tablolarına bağlanılmalıdır).  Bu tabloda bir Birincil Anahtar (PK) (INTEGER veya BIGINT) tanımlayın ve isteğe bağlı olarak 
-alım tarihi (DATE) gibi bilgiler ekleyebilirsiniz.
+# VARCHAR(n) 
+Varchar veri tipi, değişken uzunlukta karakter dizilerini saklar. Burada n, sütunun alabileceği maksimum karakter sayısını belirtir.
 
-**VII. Blog Gönderileri (BlogPosts):** Kullanıcıların blog gönderilerini (başlık (VARCHAR(255)), içerik (TEXT), yayın tarihi (TIMESTAMP), yazar bilgisi (INTEGER veya BIGINT FK) vb.) 
-saklayacak bir tablo oluşturun.. Bu tablo, üyeler tablosu ile ilişkilendirilmelidir (Yabancı Anahtar (FK) kullanılarak) ve bir Birincil Anahtar (PK) (INTEGER veya BIGINT) içermelidir. 
+## VARCHAR kullanılan sütunlar:
 
-# 2.  Birincil ve Yabancı Anahtarlar:
+**Members tablosunda:** username, email, first_name, last_name
+**Courses tablosunda:** title, instructor_info
+**Categories tablosunda:** category_name
+**Certificates tablosunda:** certificate_code
+**BlogPosts tablosunda:** title
 
-**I.** Her tabloda bir Birincil Anahtar (PK) tanımlayın. Uygun veri tipini seçin (INTEGER, BIGINT, SMALLINT vb.). 
+# TIMESTAMP 
+Timestamp veri tipi, tarih ve saati saklamak için kullanılır. Bir TIMESTAMP değeri, bir zaman dilimindeki bir anı belirtir ve genellikle tarih (Yıl-Ay-Gün) 
+ve saat (Saat:Dakika:Saniye) bilgilerini içerir.
 
-**II.** Tablolar arasındaki ilişkileri doğru bir şekilde kurmak için Yabancı Anahtarları (FK) kullanın. Yabancı anahtar sütunlarının veri tiplerinin, ilişkili oldukları birincil 
-anahtar sütunlarının veri tipleriyle aynı olmasına dikkat edin.
+## TIMESTAMP kullanılan sütunlar:
+**Members tablosunda:** registration_date
+**Enrollments tablosunda:** enrollment_date
+**BlogPosts tablosunda:** publish_date
 
-**III.** Gerekli alanlarda veri tekliğini sağlamak için Tekil Anahtarlar (UK) tanımlayın (örneğin, kullanıcı adı (VARCHAR), e-posta (VARCHAR), sertifika kodu (VARCHAR)). Uygun uzunlukları belirtin. 
+# TEXT
+Çok büyük metin verilerini saklamak için kullanılır. Bir TEXT alanı, sınırsız uzunlukta karakter dizileri içerebilir. Bu, uzun açıklamalar, blog içerikleri 
+veya makaleler gibi veriler için kullanışlıdır.
 
-# 3.  SQL Dosyası Oluşturma
+## TEXT kullanılan sütunlar:
 
-**I.** Oluşturduğunuz tüm tabloları, sütun adlarını, uygun veri tiplerini (INTEGER, BIGINT, VARCHAR, TEXT, DATE, TIMESTAMP, FLOAT, BOOLEAN vb.),Birincil Anahtar (PK), Yabancı Anahtar (FK) ve 
-Tekil Anahtar (UK) kısıtlamalarını tanımlayan bir .sql dosyası oluşturun. Gerekli durumlarda NOT NULL gibi kısıtlamaları da ekleyin.
+**Courses tablosunda:** description
+**BlogPosts tablosunda:** content
 
-**II.** Bu .sql dosyası, veritabanının sıfırdan oluşturulabilmesini ve ilişkilerin kurulabilmesini sağlamalıdır. 
+# DATE
+Date veri tipi, yalnızca tarih bilgisini saklamak için kullanılan bir veri tipidir. DATE, yıl, ay ve gün bilgilerini tutar, ancak saat, dakika, saniye gibi zaman bilgilerini içermez.
 
-# 4. Genel Şema Ekran Resmi
+## DATE kullanılan sütunlar:
 
-**I.** Oluşturduğunuz tabloları ve aralarındaki Birincil Anahtar (PK) ve Yabancı Anahtar (FK) ilişkilerini (oklarla gösterilmiş şekilde) görsel olarak gösteren bir veritabanı şema
-diyagramının ekran görüntüsünü alın. Bu, veritabanı tasarımının anlaşılmasına yardımcı olacaktır. Şemada sütun adlarını ve veri tiplerini de göstermeye çalışın. 
+**Courses tablosunda:** start_date, end_date
+**Certificates tablosunda:** issue_date
+**CertificateAssignments tablosunda:** assigned_date
+
+# UNIQUE
+Bir sütundaki veya birden fazla sütundaki değerlerin birbirinden benzersiz olmasını sağlayan bir kısıtlamadır.
+
+## UNIQUE kullanılan sütunlar:
+**Members tablosunda:** username, email
+**Certificates tablosunda:** certificate_code
+**Enrollments tablosunda:** (member_id, course_id) birleşik olarak
 
