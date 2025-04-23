@@ -5,12 +5,19 @@ Tabloyu benzersiz şekilde tanımlayan sütun ya da sütunlar. Genellikle otomat
 ## Birincil Anahtar (PK) verilen sütunlar:
 
 **Members tablosunda:** member_id
+
 **Courses tablosunda:** course_id
+
 **Categories tablosunda:** category_id
+
 **CourseCategories tablosunda:** Birleşik PK: (course_id, category_id)
+
 **Enrollments tablosunda:** enrollment_id
+
 **Certificates tablosunda:** certificate_id
+
 **CertificateAssignments tablosunda:** assignment_id
+
 **BlogPosts tablosunda:** post_id
 
 # Foreign Key(FK)
@@ -19,8 +26,11 @@ Diğer tablolara referans olan ve aralarındaki ilişkiyi tanımlayan sütunlard
 ## Yabancı Anahtar verilen sütunlar:
 
 **CourseCategories tablosunda:** course_id → Courses(course_id), category_id → Categories(category_id)
+
 **Enrollments tablosunda:** member_id → Members(member_id), course_id → Courses(course_id)
+
 **CertificateAssignments tablosunda:** member_id → Members(member_id), certificate_id → Certificates(certificate_id)
+
 **BlogPosts tablosunda:** author_id → Members(member_id)
 
 # VARCHAR(n) 
@@ -29,9 +39,13 @@ Varchar veri tipi, değişken uzunlukta karakter dizilerini saklar. Burada n, s�
 ## VARCHAR kullanılan sütunlar:
 
 **Members tablosunda:** username, email, first_name, last_name
+
 **Courses tablosunda:** title, instructor_info
+
 **Categories tablosunda:** category_name
+
 **Certificates tablosunda:** certificate_code
+
 **BlogPosts tablosunda:** title
 
 # TIMESTAMP 
@@ -40,7 +54,9 @@ ve saat (Saat:Dakika:Saniye) bilgilerini içerir.
 
 ## TIMESTAMP kullanılan sütunlar:
 **Members tablosunda:** registration_date
+
 **Enrollments tablosunda:** enrollment_date
+
 **BlogPosts tablosunda:** publish_date
 
 # TEXT
@@ -50,6 +66,7 @@ veya makaleler gibi veriler için kullanışlıdır.
 ## TEXT kullanılan sütunlar:
 
 **Courses tablosunda:** description
+
 **BlogPosts tablosunda:** content
 
 # DATE
@@ -58,14 +75,19 @@ Date veri tipi, yalnızca tarih bilgisini saklamak için kullanılan bir veri ti
 ## DATE kullanılan sütunlar:
 
 **Courses tablosunda:** start_date, end_date
+
 **Certificates tablosunda:** issue_date
+
 **CertificateAssignments tablosunda:** assigned_date
 
 # UNIQUE
 Bir sütundaki veya birden fazla sütundaki değerlerin birbirinden benzersiz olmasını sağlayan bir kısıtlamadır.
 
 ## UNIQUE kullanılan sütunlar:
+
 **Members tablosunda:** username, email
+
 **Certificates tablosunda:** certificate_code
+
 **Enrollments tablosunda:** (member_id, course_id) birleşik olarak
 
